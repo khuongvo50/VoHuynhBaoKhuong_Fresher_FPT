@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	class="no-js" lang="zxx">
+
+<head>
+<title>Login</title>
+
+</head>
+
+<body>
+
+	<h1>Hello Home</h1>
+	<table>
+		<tr>
+			<td th:if="${#request.userPrincipal}"><strong
+				th:text="${#request.userPrincipal.name}"></strong><a
+				th:href="@{/logout}	"> <strong>Logout</strong>
+			</a></td>
+
+			<td th:unless="${#request.userPrincipal}"><a th:href="@{/login}">
+					<strong>Login</strong>
+			</a></td>
+
+			<td><a th:href="@{/signup}"> <strong>Sign Up</strong>
+			</a></td>
+		</tr>
+	</table>
+
+
+
+	<div th:switch="${usall}">
+		<h2 th:case="null">No users yet!</h2>
+		<div th:case="*">
+			<h2>Users</h2>
+			<table>
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Email</th>
+						<th>Role</th>
+						<th>Update</th>
+						<th>Delete</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="user : ${usall}">
+						<td th:text="${user.name}"></td>
+						<td th:text="${user.email}"></td>
+						<td th:text="${user.role}"></td>
+
+
+						<td><a th:href="@{/update-user/{id}(id=${user.id})}">Update</a></td>
+						<td><a th:href="@{/delete-user/{id}(id=${user.id})}">Delete</a></td>
+
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<p>
+			<a href="/create-user">Create New User</a>
+		</p>
+	</div>
+
+</body>
+
+</html>

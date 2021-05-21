@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	class="no-js" lang="zxx">
+
+<head>
+<title>Create User</title>
+
+</head>
+
+<body>
+
+	<div class="wrapper">
+
+
+
+		<!-- Row End -->
+		<div class="row">
+			<div class="col-sm-12">
+				<form class="form-register" action="#" th:action="@{/create-user}"
+					th:object="${users}" method="POST">
+					<fieldset>
+						<legend>Sign Up</legend>
+						<div class="form-group d-md-flex align-items-md-center">
+							<label class="control-label col-md-2" for="f-name"><span
+								class="require"></span>Name</label>
+							<div class="col-md-10">
+								<input th:field="*{name}" type="text" class="form-control"
+									placeholder="name" required id="hoTen" maxlength="30">
+							</div>
+						</div>
+
+					</fieldset>
+
+					<fieldset>
+						<legend>Account</legend>
+						<div class="form-group d-md-flex align-items-md-center">
+							<label class="control-label col-md-2" for="email"><span
+								class="require"></span>Email</label>
+							<div class="col-md-10">
+								<input type="email" class="form-control" placeholder="email"
+									th:field="*{email}" required id="email" onchange="checkEmail()">
+							</div>
+						</div>
+
+
+						<div class="form-group d-md-flex align-items-md-center">
+							<label class="control-label col-md-2" for="pwd"><span
+								class="require"></span>Password</label>
+							<div class="col-md-10">
+								<input type="password" class="form-control" id="pwd1"
+									th:maxlength="12" th:minlength="6" placeholder="pass word"
+									th:field="*{passWord}" required>
+							</div>
+						</div>
+						<div class="form-group d-md-flex align-items-md-center">
+							<label class="control-label col-md-2" for="pwd-confirm"><span
+								class="require">*</span>Confirm Password</label>
+							<div class="col-md-10">
+								<input type="password" class="form-control" id="pwd2"
+									th:maxlength="12" th:minlength="6"
+									placeholder="Confirm password" required onchange="valipwd()">
+							</div>
+						</div>
+						
+							<div class="form-group d-md-flex align-items-md-center">
+										<label class="control-label col-md-2" for="f-name"><span
+											class="require">*</span>Role</label>
+										<div class="col-md-10">
+											<div class="form-group">
+												<select class="form-control" name ="idLoai">
+													<option th:each="role : ${roles}"
+														th:text="${role.role}"
+														th:value="${role.id}"></option>
+												</select>
+											</div>
+										</div>
+								</div>
+						
+						
+					</fieldset>
+
+					<div class="terms">
+						<div class="float-md-right">
+							<button class="return-customer-btn" type="submit"
+								onclick="valipwd(),checkEmail()">Đăng Ký</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<!-- Row End -->
+	</div>
+
+
+
+	<script type="text/javascript">
+	
+
+		function valipwd() {
+			var password = document.getElementById("pwd1").value;
+			var confirmPassword = document.getElementById("pwd2").value;
+			if (password != confirmPassword) {
+				alert("Mật khẩu không trùng nhau");
+				pwd2.focus();
+				return false;
+			} else {
+				return true;
+			}
+		}
+		function checkEmail() {
+			var email = document.getElementById('email');
+			var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+			if (!filter.test(email.value)) {
+				alert('Hay nhap dia chi email hop le.\nExample@gmail.com');
+				email.focus();
+				return false;
+			} else {
+				return true;
+			}
+
+		}
+	</script>
+</body>
+
+</html>
